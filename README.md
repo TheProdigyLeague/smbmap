@@ -1,8 +1,19 @@
+```
+    ________  ___      ___  _______   ___      ___       __         _______
+   /"       )|"  \    /"  ||   _  "\ |"  \    /"  |     /""\       |   __ "\
+  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
+   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /' /\  \     |:  ____/
+    __/  \   |: \.        |(|  _  \  |: \.        |  //  __'  \    (|  /
+   /" \   :) |.  \    /:  ||: |_)  :)|.  \    /:  | /   /  \   \  /|__/ \
+  (_______/  |___|\__/|___|(_______/ |___|\__/|___|(___/    \___)(_______)
+ -----------------------------------------------------------------------------
+(c)
+```
 # SMBMap
-
 SMBMap allows users to enumerate samba share drives across an entire domain. List share drives, drive permissions, share contents, upload/download functionality, file name auto-download pattern matching, and even execute remote commands. This tool was designed with pen testing in mind, and is intended to simplify searching for potentially sensitive data across large networks.
 
-Some of the features have not been thoroughly tested, so changes will be forth coming as bugs are found. I only really find and fix the bugs while I'm on engagements, so progress is a bit slow. Any feedback or bug reports would be appreciated. It's definitely rough around the edges, but I'm just trying to pack in features at the moment. Version 2.0 should clean up the code a lot….whenever that actually happens ;). Thanks for checking it out!!
+Some of the features have not been thoroughly tested, so changes will be forth coming as bugs are found. I only really find and fix the bugs while I'm on engagements, so progress is a bit slow. Any feedback or bug reports would be appreciated. It's definitely rough around the edges, but I'm just trying to pack in features at the moment. Version 2.0 should clean up the code a lot.
+Thanks for checking it out!
 
 There's a known oddity in the SMBServer component used for the file content search feature. For some reason it throws an exception in the threading library. It still works, but the error is annoying none the less.
 
@@ -22,18 +33,11 @@ $ python3 -m pip install -r requirements.txt
 - File name matching (with an auto downoad capability)
 
 ## Help
-```
-    ________  ___      ___  _______   ___      ___       __         _______
-   /"       )|"  \    /"  ||   _  "\ |"  \    /"  |     /""\       |   __ "\
-  (:   \___/  \   \  //   |(. |_)  :) \   \  //   |    /    \      (. |__) :)
-   \___  \    /\  \/.    ||:     \/   /\   \/.    |   /' /\  \     |:  ____/
-    __/  \   |: \.        |(|  _  \  |: \.        |  //  __'  \    (|  /
-   /" \   :) |.  \    /:  ||: |_)  :)|.  \    /:  | /   /  \   \  /|__/ \
-  (_______/  |___|\__/|___|(_______/ |___|\__/|___|(___/    \___)(_______)
- -----------------------------------------------------------------------------
+
      SMBMap - Samba Share Enumerator | Shawn Evans - ShawnDEvans@gmail.com   
                      https://github.com/ShawnDEvans/smbmap
-
+		     GNU PUBLIC LICENSE | ALL RIGHTS RESERVED (c)
+```
 optional arguments:
   -h, --help            show this help message and exit
 
@@ -52,74 +56,88 @@ Main arguments:
   --no-color            Removes color from output
   --no-update           Removes "Working on it..." update message from output
 
-Command Execution:
-  Options for executing commands on the specified host
+$ Command Execution:
+$ Options: 
+# for cmd.exe [HOST]
 
-  -x COMMAND            Execute a command ex. 'ipconfig /all'
+  -x COMMAND            Execute a command i.e. 'ipconfig /all'
   --mode CMDMODE        Set the execution method, wmi or psexec, default wmi
-
-Shard drive Search:
-  Options for searching/enumerating the share of the specified host(s)
+S Y N T A X
+<pre class="">/|/ \|\ /|/ \|\ /|/ \|\ /|/
+/|/ \|\ /|/ \|\ /|/ \|\ /|/
+/|/ \|\ /|/ \|\ /|/ \|\ /|/
+/|/ \|\ /|/ \|\ /|/ \|\ /|/
+/|/ \|\ /|/ \|\ /|/ \|\ /|/
+/|/ \|\ /|/ \|\ /|/ \|\ /|/
+/|/ \|\ /|/ \|\ /|/ \|\ /|/
+/|/ \|\ /|/ \|\ /|/ \|\ /|/
+/|/ \|\ /|/ \|\ /|/ \|\ /|/ (PS)
+</pre>
+$ Shard drive Search:
+$ Options: 
+# for searching/enumerating the share of the specified host(s)
 
   -L                    List all drives on the specified host, requires ADMIN
                         rights.
   -R [PATH]             Recursively list dirs, and files (no share\path lists
-                        ALL shares), ex. 'C$\Finance'
+                        ALL shares), i.e. 'C$\Finance'
   -r [PATH]             List contents of directory, default is to list root of
-                        all shares, ex. -r 'C$\Documents and
-                        Settings\Administrator\Documents'
+                        all shares, i.e. -r 'C$\Documents&Settings\Administrator\Documents'
   -A PATTERN            Define a file name pattern (regex) that auto downloads
                         a file on a match (requires -R or -r), not case
-                        sensitive, ex '(web|global).(asax|config)'
+                        sensitive, i.e. '(web|global).(asax|config)'
   -g FILE               Output to a file in a grep friendly format, used with
-                        -r or -R (otherwise it outputs nothing), ex -g
+                        -r or -R (otherwise it outputs nothing), i.e. -g
                         grep_out.txt
   --csv FILE            Output to a CSV file, ex --csv shares.csv
-  --dir-only            List only directories, ommit files.
+  --dir-only            List only directories, omit files.
   --no-write-check      Skip check to see if drive grants WRITE access.
-  -q                    Quiet verbose output. Only shows shares you have READ
-                        or WRITE on, and suppresses file listing when
-                        performing a search (-A).
+  -q                    Quiet verbose output. shares what algorithm has READ
+                        or WRITE. Hint: (-A).
   --depth DEPTH         Traverse a directory tree to a specific depth. Default
                         is 5.
   --exclude SHARE [SHARE ...]
                         Exclude share(s) from searching and listing, ex.
                         --exclude ADMIN$ C$'
 
-File Content Search:
-  Options for searching the content of files (must run as root), kind of experimental
+$F i l e | C o n t e n t | S e a r c h
+$Options: 
+# for searching the content of files (must run as root), kind of experimental
 
-  -F PATTERN            File content search, -F '[Pp]assword' (requires admin
-                        access to execute commands, and PowerShell on victim
-                        host)
+  -F PATTERN            File content search, -F '[Pp]assword' (requires administrative privileges)
   --search-path PATH    Specify drive/path to search (used with -F, default
-                        C:\Users), ex 'D:\HR\'
+                        C:\Users), i.e. 'D:\HR\'
   --search-timeout TIMEOUT
                         Specifcy a timeout (in seconds) before the file search
                         job gets killed. Default is 300 seconds.
 
-Filesystem interaction:
-  Options for interacting with the specified host's filesystem
+文件系统用户界面!
+>Options: [HOST]
 
   --download PATH       Download a file from the remote system,
-                        ex.'C$\temp\passwords.txt'
-  --upload SRC DST      Upload a file to the remote system ex.
-                        '/tmp/payload.exe C$\temp\payload.exe'
+                        i.e.'C$\temp\passwords.txt'
+  --upload SRC DST      Upload a file to the remote system i.e.
+                        'C:/tmp/payload.exe'
+{void}
+```
+```
+>C$\temp\payload.exe
   --delete PATH TO FILE
                         Delete a remote file, ex. 'C$\temp\msf.exe'
   --skip                Skip delete file confirmation prompt
-
-Examples:
-
+```  
+Public Key Tokens:
+```
 $ python smbmap.py -u jsmith -p password1 -d workgroup -H 192.168.0.1
 $ python smbmap.py -u jsmith -p 'aad3b435b51404eeaad3b435b51404ee:da76f2c4c96028b7a6111aef4a50a94d' -H 172.16.0.20
 $ python smbmap.py -u 'apadmin' -p 'asdf1234!' -d ACME -H 10.1.3.30 -x 'net group "Domain Admins" /domain'
 ```
-
+(c)
+```
 ## Default Output:
 ```
 $ ./smbmap.py -H 192.168.12.123 -u administrator -p asdf1234
-[+] Finding open SMB ports....
+[+] Finding open SMB ports...
 [+] User SMB session established on 192.168.86.39...
 [+] IP: 192.168.86.39:445	Name: biffhenderson-pc.lan
 	Disk                                Permissions	    Comment
@@ -133,7 +151,7 @@ $ ./smbmap.py -H 192.168.12.123 -u administrator -p asdf1234
 ## Command execution:
 ```
 $ python smbmap.py -u ariley -p 'P@$$w0rd1234!' -d ABC -x 'net group "Domain Admins" /domain' -H 192.168.2.50
-[+] Finding open SMB ports....
+[+] Finding open SMB ports...
 [+] User SMB session established...
 [+] IP: 192.168.2.50:445        Name: unknown
 Group name     Domain Admins
@@ -143,13 +161,14 @@ Members
 
 -------------------------------------------------------------------------------
 abcadmin
-The command completed successfully.
+T  h  e  c  o  m  m  a n  d  c  o  m  p  l  e  t  e  d  s  u  c  c  e  s  s  f  u  l  l  y  !
 ```
 
-## Non recursive path listing (ls):
+## Non recursive path listing
 ```
+$ls
 $ python smbmap.py -H 172.16.0.24 -u Administrator -p 'changeMe' -r 'C$\Users'
-[+] Finding open SMB ports....
+[+] Finding open SMB ports...
 [+] User SMB session established...
 [+] IP: 172.16.0.24:445 Name: 172.16.0.24
     Disk                                                    Permissions
@@ -167,7 +186,7 @@ $ python smbmap.py -H 172.16.0.24 -u Administrator -p 'changeMe' -r 'C$\Users'
     dr--r--r--                0 Wed Apr 22 13:33:01 2015    wingus
 ```
 
-## File Content Searching:
+## 文件。内容。正在寻找-
 ```
 $ python smbmap.py --host-file ~/Desktop/smb-workstation-sml.txt -u NopSec -p 'NopSec1234!' -d widgetworld -F '[1-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]'
 [+] Finding open SMB ports....
@@ -192,8 +211,8 @@ Host: 192.168.0.85         Pattern: [1-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0
 No matching patterns found
 
 Host: 192.168.0.89         Pattern: [1-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]
-C:\Users\terdf\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.IE5\JY5MGKVO\salesmaps[1].htm
-C:\Users\terdf\OldFiles\Cache_2013522\Content.IE5\JY5MGKVO\salesmaps[1].htm
+C:\Users\terdf\AppData\Local\Microsoft\Windows\Temporary Internet Files\Content.IE5\JY5MGKVO\salesmaps[1].html
+C:\Users\terdf\OldFiles\Cache_2013522\Content.IE5\JY5MGKVO\salesmaps[1].html
 
 Host: 192.168.0.99         Pattern: [1-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]
 C:\Users\biffh\AppData\Local\Microsoft\Internet Explorer\DOMStore\L7W17OPZ\static.olark[1].xml
